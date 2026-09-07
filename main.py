@@ -15,15 +15,18 @@ raw_trade_log = """
 }
 """
 
-# TUGAS 1: Buat Decorator @trade_logger
-# Wajib menampung hasil fungsi utamanya sebelum melakukan return akhir!
-# Jangan lupa anotasi tipe argumen dan return-nya.
 
+def trade_logger(func: callable) -> callable:
+    @functools.wraps(func)
+    def myinner(*args, **kwargs):
+        print("Reading transaction logs...")
+        time.sleep(3)
+        result = func(*args, **kwargs)
+        print("Validation complete.")
+        return result
+    return myinner
 
-
-# TUGAS 2: Fungsi Utama
-# Eksekusi Type Annotations yang TEPAT (parsed json adalah dict).
-# Gunakan Sets untuk irisan dan selisih, lalu kembalikan hasilnya sebagai list.
+@trade_logger
 def trade_execute(data: str) -> str:
     response: dict = json.loads(data)
     indicator_a: str = response['data']['indikator_a_valid']
