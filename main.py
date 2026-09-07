@@ -3,7 +3,6 @@ import time
 import functools
 from typing import Callable
 
-# Data simulasi dari server (berwujud String JSON)
 raw_trade_log = """
 {
     "session": "NY_Open",
@@ -14,7 +13,6 @@ raw_trade_log = """
     }
 }
 """
-
 
 def trade_logger(func: callable) -> callable:
     @functools.wraps(func)
